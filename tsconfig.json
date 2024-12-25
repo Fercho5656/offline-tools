@@ -6,5 +6,27 @@
   ],
   "exclude": [
     "dist"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@icons/*": [
+        "src/components/icons/*"
+      ],
+    },
+    "lib": [
+      "WebWorker",
+      "ESNext",
+      "DOM",
+    ],
+  },
+  "files": [
+    "public/service-worker.ts"
   ]
 }
