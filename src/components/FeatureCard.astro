@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+const { icon, title, description, link } = Astro.props;
+---
+
+<article
+  class="h-full group bg-neutral-800 p-8 md:p-6 rounded-lg text-neutral-100 transition-transform transition-shadow duration-75 hover:-translate-y-2 hover:shadow-primary-dark shadow-md"
+>
+  <a class="flex flex-col h-full justify-around" href={link}>
+    <header>
+      <Icon
+        name={icon}
+        class="w-8 h-auto group-hover:text-primary-light transition-colors"
+      />
+    </header>
+    <h2 class="text-xl font-bold mt-4">{title}</h2>
+    <p class="text-neutral-300 mt-2">{description}</p>
+    <p class="text-primary-light mt-4 inline-block">Learn more</p>
+  </a>
+</article>
