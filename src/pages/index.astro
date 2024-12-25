@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import FeatureCard from "@components/FeatureCard.astro";
 
@@ -30,6 +31,27 @@ const cards = [
 		link: "/chatbot",
 	},
 ];
+
+const reasons = [
+	{
+		icon: "globe-lock",
+		title: "Privacy & Security",
+		description:
+			"No data is sent to the server, everything is processed locally.",
+	},
+	{
+		icon: "cloud-off",
+		title: "Offline Availability",
+		description:
+			"Works even when you're offline, no need for an internet connection.",
+	},
+	{
+		icon: "person-standing",
+		title: "Accessibility",
+		description:
+			"No need to install any external software, just open the website and start using it.",
+	},
+];
 ---
 
 <Layout>
@@ -45,7 +67,7 @@ const cards = [
 		</p>
 	</section>
 	<section
-		class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-12 auto-rows-fr"
+		class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-24 auto-rows-fr"
 	>
 		{
 			cards.map((card) => (
@@ -58,9 +80,25 @@ const cards = [
 			))
 		}
 	</section>
-	<script>
-		if (navigator.serviceWorker) {
-			navigator.serviceWorker.register("/service-worker.ts");
-		}
-	</script>
+	<section class="mt-24">
+		<h2 class="text-3xl font-bold text-center mb-12">Why Go Offline?</h2>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
+			{
+				reasons.map((reason) => (
+					<div class="flex flex-col items-center">
+						<Icon name={reason.icon} class="w-12 h-auto text-primary-light" />
+						<h3 class="text-xl font-bold mt-4">{reason.title}</h3>
+						<p class="text-neutral-300 mt-2 max-w-[50ch] text-balance text-center">
+							{reason.description}
+						</p>
+					</div>
+				))
+			}
+		</div>
+		<script>
+			if (navigator.serviceWorker) {
+				navigator.serviceWorker.register("/service-worker.ts");
+			}
+		</script>
+	</section>
 </Layout>
