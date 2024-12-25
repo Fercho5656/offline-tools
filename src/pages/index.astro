@@ -1,11 +1,66 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import FeatureCard from "@components/FeatureCard.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const cards = [
+	{
+		icon: "image",
+		title: "Media Compression",
+		description:
+			"Optimize for web, compress while maintaining quality, convert formats, etc.",
+		link: "/media",
+	},
+	{
+		icon: "audio-lines",
+		title: "Audio Transcription",
+		description:
+			"Transcribe audio/video files into text, support multiple languages.",
+		link: "/audio",
+	},
+	{
+		icon: "document",
+		title: "PDF Tools",
+		description: "Merge, split, compress, convert, and optimize PDF files.",
+		link: "/pdf",
+	},
+	{
+		icon: "robot",
+		title: "LLM Chatbot",
+		description: "A chatbot that can answer your questions about LLM.",
+		link: "/chatbot",
+	},
+];
 ---
 
 <Layout>
-	<Welcome />
+	<section class="text-center flex flex-col items-center mt-12">
+		<h1 class="text-5xl md:text-6xl font-bold mb-4">
+			Your Offline <span
+				class="bg-gradient-to-r from-primary to-neutral-100 bg-clip-text text-transparent"
+				>Toolkit</span
+			>
+		</h1>
+		<p class="text-xl text-primary-light max-w-[80ch] text-balance mb-4">
+			A collection of tools that work entirely offline
+		</p>
+	</section>
+	<section
+		class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-12 auto-rows-fr"
+	>
+		{
+			cards.map((card) => (
+				<FeatureCard
+					icon={card.icon}
+					title={card.title}
+					description={card.description}
+					link={card.link}
+				/>
+			))
+		}
+	</section>
+	<script>
+		if (navigator.serviceWorker) {
+			navigator.serviceWorker.register("/service-worker.ts");
+		}
+	</script>
 </Layout>
