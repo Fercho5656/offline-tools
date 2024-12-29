@@ -1,0 +1,51 @@
+---
+import DropZone from "@components/DropZone.astro";
+import TransparentCard from "@components/TransparentCard.astro";
+import Layout from "@layouts/Layout.astro";
+
+const reasons = [
+  {
+    icon: "piggy-bank",
+    title: "Save Storage Space",
+    description: "Reduce file sizes for better storage efficiency",
+  },
+  {
+    icon: "rocket",
+    title: "Boost SEO Performance",
+    description: " Improve website load speeds, enhancing search rankings",
+  },
+  {
+    icon: "gauge",
+    title: "Minimize Bandwidth Usage",
+    description: "Enable faster downloads on limited networks",
+  },
+];
+---
+
+<Layout>
+  <section class="text-center flex flex-col items-center">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4">
+      Compress Media with Ease
+    </h1>
+    <p class="text-xl text-primary-light max-w-[80ch] text-balance mb-4">
+      Drop your files below and choose between our presets
+    </p>
+    <DropZone />
+  </section>
+  <section class="mt-12">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      Why Optimize Media Files?
+    </h2>
+    <div class="flex justify-center gap-x-8">
+      {
+        reasons.map((reason) => (
+          <TransparentCard
+            icon={reason.icon}
+            title={reason.title}
+            content={reason.description}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Layout>
