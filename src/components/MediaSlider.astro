@@ -1,0 +1,113 @@
+---
+
+---
+
+<div id="media-slider-container" class="relative w-full max-w-[500px]">
+  <div class="relative w-full m-auto overflow-hidden select-none">
+    <slot name="before">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-image-off object-cover"
+        ><line x1="2" x2="22" y1="2" y2="22"></line><path
+          d="M10.41 10.41a2 2 0 1 1-2.83-2.83"></path><line
+          x1="13.5"
+          x2="6"
+          y1="13.5"
+          y2="21"></line><line x1="18" x2="21" y1="12" y2="15"></line><path
+          d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"
+        ></path><path d="M21 15V5a2 2 0 0 0-2-2H9"></path></svg
+      >
+    </slot>
+    <div
+      id="after-container"
+      class="absolute top-0 left-0 right-0 w-full m-auto overflow-hidden select-none"
+      style="clip-path: inset(0 50% 0 0);"
+    >
+      <slot name="after">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-image-off object-cover"
+          ><line x1="2" x2="22" y1="2" y2="22"></line><path
+            d="M10.41 10.41a2 2 0 1 1-2.83-2.83"></path><line
+            x1="13.5"
+            x2="6"
+            y1="13.5"
+            y2="21"></line><line x1="18" x2="21" y1="12" y2="15"></line><path
+            d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"
+          ></path><path d="M21 15V5a2 2 0 0 0-2-2H9"></path></svg
+        >
+      </slot>
+    </div>
+    <div
+      id="slider-bar"
+      class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize left-1/2"
+    >
+      <div
+        class="bg-white absolute rounded-full h-5 w-5 -left-2 top-[calc(50%-5px)]"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(
+      "#media-slider-container",
+    ) as HTMLDivElement;
+    const containerFirstChild = container.querySelector(
+      "div:first-child",
+    ) as HTMLDivElement;
+    const containerAfter = container.querySelector(
+      "#after-container",
+    ) as HTMLDivElement;
+    const sliderBar = container.querySelector("#slider-bar") as HTMLDivElement;
+
+    let isDragging = false;
+
+    container.addEventListener("mouseup", handleMouseUp);
+    containerFirstChild.addEventListener("mousemove", (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const currentTarget = e.currentTarget as HTMLDivElement;
+
+      const rect = currentTarget.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percent = Math.max(0, Math.min((x / rect.width) * 100, 100));
+
+      containerAfter.style.clipPath = `inset(0% ${100 - percent}% 0 0)`;
+      sliderBar.style.left = `calc(${percent}% - 1px)`;
+    });
+    containerFirstChild.addEventListener("mousedown", handleMouseDown);
+
+    function handleMouseUp(e: MouseEvent) {
+      isDragging = false;
+    }
+
+    function handleMouseDown(e: MouseEvent) {
+      isDragging = true;
+    }
+  });
+</script>
+
+<style is:global>
+  #media-slider-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+</style>
