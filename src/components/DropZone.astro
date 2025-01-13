@@ -1,0 +1,109 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="relative">
+  <div
+    id="dropzone"
+    class="min-h-[200px] border-2 border-dashed border-gray-300 rounded-lg p-6 flex items-center justify-center transition-colors duration-200 ease-in-out cursor-pointer hover:border-primary focus-within:border-primary focus-within:ring-2 focus-within:ring-primary focus-within:opacity-50 bg-slate-500 bg-opacity-50"
+    tabindex="0"
+    role="button"
+    aria-label="Click or drop files to upload"
+  >
+    <input type="file" id="dropzone-input" class="sr-only" />
+    <div class="flex flex-col items-center justify-center space-y-4">
+      <Icon class="w-12 h-auto" name="upload" />
+      <div class="text-center">
+        <p class="text-lg font-medium text-gray-300">
+          Drop files here or click to upload
+        </p>
+        <p class="text-sm text-gray-500"></p>Supported files: Images and Videos
+      </div>
+    </div>
+  </div>
+  <div id="error-dropzone" class="mt-2 text-red-500 text-sm hidden"></div>
+</div>
+
+<script>
+  import { openDB, storeFile } from "@utils/indexedDB";
+  const dropzone = document.getElementById("dropzone") as HTMLDivElement;
+  const dropzoneInput = document.getElementById(
+    "dropzone-input",
+  ) as HTMLInputElement;
+  const errorDropzone = document.getElementById(
+    "error-dropzone",
+  ) as HTMLDivElement;
+
+  function showError(message: string) {
+    if (!errorDropzone) return;
+    errorDropzone.textContent = message;
+    errorDropzone.classList.remove("hidden");
+    setTimeout(() => {
+      errorDropzone.classList.add("hidden");
+    }, 5000);
+  }
+
+  async function handleFile(file: File) {
+    try {
+      const dbRequest = await openDB();
+      const fileId = file.name;
+      await storeFile(dbRequest, fileId, file);
+
+      dbRequest.onerror = () => {
+        showError("Failed to open database");
+      };
+
+      const fileType = file.type.includes("image") ? "image" : "video";
+      const redirectUrl = `editor#${fileType}=${fileId}`;
+
+      window.location.href = `${window.location.href}/${redirectUrl}`;
+    } catch (error: any) {
+      showError(`Error: ${error.message}`);
+    }
+  }
+
+  dropzone.addEventListener("click", () => dropzoneInput.click());
+
+  dropzone.addEventListener("dragover", (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.add("border-primary");
+  });
+
+  dropzone.addEventListener("dragleave", (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove("border-primary");
+  });
+
+  dropzone.addEventListener("drop", (e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove("border-primary");
+
+    if (e.dataTransfer?.files) {
+      const files = e.dataTransfer.files;
+      if (files.length > 1) {
+        showError("Please upload only one file at a time");
+        return;
+      }
+      handleFile(files[0]);
+    }
+  });
+
+  dropzone.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      dropzoneInput.click();
+    }
+  });
+
+  dropzoneInput.addEventListener("change", (e: Event) => {
+    const files = (e.target as HTMLInputElement).files;
+    if (!files) return;
+    if (files.length > 1) {
+      showError("Please upload only one file at a time");
+      return;
+    }
+    handleFile(files[0]);
+  });
+</script>
