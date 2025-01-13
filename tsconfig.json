@@ -19,6 +19,9 @@
       "@icons/*": [
         "src/components/icons/*"
       ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
     },
     "lib": [
       "WebWorker",
