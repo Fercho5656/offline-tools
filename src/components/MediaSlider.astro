@@ -28,7 +28,7 @@ import { Icon } from "astro-icon/components";
     <div
       id="after-container"
       class="absolute top-0 left-0 right-0 w-full m-auto overflow-hidden select-none"
-      style="clip-path: inset(0 50% 0 0);"
+      style="clip-path: inset(0 0 0 50%);"
     >
       <slot name="after">
         <svg
@@ -90,7 +90,7 @@ import { Icon } from "astro-icon/components";
       const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
       const percent = Math.max(0, Math.min((x / rect.width) * 100, 100));
 
-      containerAfter.style.clipPath = `inset(0% ${100 - percent}% 0 0)`;
+      containerAfter.style.clipPath = `inset(0 0 0 ${percent}%)`;
       sliderBar.style.left = `calc(${percent}% - 1px)`;
     });
     containerFirstChild.addEventListener("mousedown", handleMouseDown);
