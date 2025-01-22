@@ -22,6 +22,12 @@
       "@utils/*": [
         "src/utils/*"
       ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@workers/*": [
+        "src/workers/*"
+      ],
     },
     "lib": [
       "WebWorker",
