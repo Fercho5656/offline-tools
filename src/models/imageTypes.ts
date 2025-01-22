@@ -1,0 +1,1 @@
+export type ImgType = 'avif' | 'jpeg' | 'jpg' | 'jxl' | 'png' | 'webp';
