@@ -14,6 +14,21 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.2
         version: 5.1.2(astro@4.16.16(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.7.2))(tailwindcss@3.4.15)
+      '@jsquash/avif':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@jsquash/jpeg':
+        specifier: ^1.4.0
+        version: 1.4.0
+      '@jsquash/jxl':
+        specifier: ^1.1.0
+        version: 1.1.0
+      '@jsquash/png':
+        specifier: ^3.0.1
+        version: 3.0.1
+      '@jsquash/webp':
+        specifier: ^1.4.0
+        version: 1.4.0
       astro:
         specifier: ^4.16.16
         version: 4.16.16(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.7.2)
@@ -467,6 +482,21 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@jsquash/avif@2.0.0':
+    resolution: {integrity: sha512-Gu1S4PCNpZvKXdenpyFUa9pVG4XdAPpTR/H1prr78WQLIKmbBoTkH6Nyf4qrSiNrQFqteyHeFrILsysXD6YRWg==}
+
+  '@jsquash/jpeg@1.4.0':
+    resolution: {integrity: sha512-I/uGQ5Gk3qOEQNufUcR9boZ0qH+eoXW7cp0mW9eNInlgjRXwEhepvfbnutQ+RM1dNeuIHoOM5YVCEK1y/ATipQ==}
+
+  '@jsquash/jxl@1.1.0':
+    resolution: {integrity: sha512-atdg3ZOOhmK3A87gRRS1mTBp+ljVK0rYaAVAhnrv7GhKTPFDZKo+GkLsXMu5oAka43Wi9iBOXFJeq+xtD1z57w==}
+
+  '@jsquash/png@3.0.1':
+    resolution: {integrity: sha512-Bnvv93Y5LL92cuk2r2gpV+9JKuDo2/w7bOODw1iPxk8VARknky0sS1tSDgMosUdhNb4CdMlcCm3TMzTaqa3zZw==}
+
+  '@jsquash/webp@1.4.0':
+    resolution: {integrity: sha512-yKJb6Hilq+qV/4C4qTDEalBobNwJO09LeHHtilmWg5mYHFUDwMunfeAap/r3cL5KsHkGOoI0IjY2nKbTaHq9Bw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2267,6 +2297,9 @@ packages:
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
 
+  wasm-feature-detect@1.8.0:
+    resolution: {integrity: sha512-zksaLKM2fVlnB5jQQDqKXXwYHLQUVH9es+5TOOHwGOVJOCeRBCiPjwSg+3tN2AdTCzjgli4jijCH290kXb/zWQ==}
+
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
 
@@ -2824,6 +2857,22 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@jsquash/avif@2.0.0':
+    dependencies:
+      wasm-feature-detect: 1.8.0
+
+  '@jsquash/jpeg@1.4.0': {}
+
+  '@jsquash/jxl@1.1.0':
+    dependencies:
+      wasm-feature-detect: 1.8.0
+
+  '@jsquash/png@3.0.1': {}
+
+  '@jsquash/webp@1.4.0':
+    dependencies:
+      wasm-feature-detect: 1.8.0
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4991,6 +5040,8 @@ snapshots:
   vscode-nls@5.2.0: {}
 
   vscode-uri@3.0.8: {}
+
+  wasm-feature-detect@1.8.0: {}
 
   web-namespaces@2.0.1: {}
 
